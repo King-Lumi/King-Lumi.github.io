@@ -26,3 +26,19 @@ This repository can be published as a static site using GitHub Pages: repository
 
 ## Important
 This repository is a **UI prototype, not a production fintech service**. It does not provide real authentication, real account balances, real card issuance, real transfers, or secure admin permissions. Do not enter real banking credentials or personal financial data.
+
+
+## User registration and login setup
+
+The registration/sign-in screen now uses Supabase Auth, and the dashboard redirects visitors who are not signed in back to `auth.html`. The signed-in user's name/email appear in their dashboard and a Sign out button is available. **This is authentication plus a personalized dashboard shell; the balance, card, and sample transaction figures remain demo data. No real payments are processed.**
+
+1. Create a project at https://supabase.com/.
+2. In the Supabase project, open Project Settings / API and copy the project URL and publishable key (or legacy anon key).
+3. Edit `supabase-config.js` and replace the two placeholder strings. Only use a publishable/anon key in frontend code; never expose a service-role/secret key.
+4. In Supabase Authentication URL Configuration, set the Site URL to your published website and add both the website URL and `/auth.html` to allowed redirect URLs.
+5. Run `supabase-schema.sql` in the Supabase SQL Editor to create user-owned profile, savings-goal, and transaction tables with row-level security.
+6. Publish the static files to a supported static host and test signup, email confirmation, sign-in, refresh, sign-out, and password reset.
+
+Supabase references: https://supabase.com/docs/reference/javascript/auth-signup and https://supabase.com/docs/reference/javascript/auth-signin.
+
+**Important hosting note:** GitHub Pages is static hosting and its policy says it is not intended for commercial transaction or SaaS sites. Before launching EasyPayment publicly as a financial service, use appropriate hosting and build a trusted server/API, verified payment-provider integration, server-created ledger, fraud monitoring, privacy/compliance controls, and security testing. The current UI is not a bank or payment processor.
